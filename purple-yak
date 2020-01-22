@@ -42,7 +42,8 @@ def word_count(text):
     Number of words in the corpus
     """
     draw_header(word_count)
-    print("{} sum".format(len(text)))
+    print("{} (sum)".format(len(text)))
+    print("{} (unique)".format(len(list(set(text)))))
 
 
 def most_common_words(word_list, count=5):
