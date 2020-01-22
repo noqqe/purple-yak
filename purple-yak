@@ -39,19 +39,17 @@ def word_count(text):
     """
 
     draw_header(word_count)
-    r = get_words(text)
-    print(len(r))
+    print("{} sum".format(len(text)))
 
 
-def most_common_words(text, count=5):
+def most_common_words(word_list, count=5):
     """
     Most common words in the corpus
     """
 
     draw_header(most_common_words)
 
-    words_list = get_words(text)
-    words = collections.Counter(words_list)
+    words = collections.Counter(word_list)
 
     for item in words.most_common(count):
         print("{} ({})".format(item[1], item[0]))
@@ -74,21 +72,20 @@ def most_common_characters(text, count=5):
         print("{} ({})".format(item[1], item[0]))
 
 
-def longest_words(text, count=5):
+def longest_words(word_list, count=5):
     """
     Longest word in the corpus
     """
 
     draw_header(longest_words)
 
-    words_list = get_words(text)
-    words = sorted(list(set(words_list)), key=len, reverse=True)
+    words = sorted(list(set(word_list)), key=len, reverse=True)
 
     for item in words[0:count]:
         print("{} ({})".format(len(item), item))
 
 
-def word_length_distribution(text):
+def word_length_distribution(word_list):
     """
     Distribution of word length in the corpus
     """
@@ -96,9 +93,8 @@ def word_length_distribution(text):
     draw_header(word_length_distribution)
 
     wordlenlist = []
-    words_list = get_words(text)
 
-    for word in words_list:
+    for word in word_list:
         wordlenlist = wordlenlist + [len(word)]
 
     wordlen = collections.Counter(wordlenlist)
@@ -106,14 +102,16 @@ def word_length_distribution(text):
         print("{}\t({} characters)".format(wordlen[item], item))
 
 
-corpus = get_corpus()
+text = get_corpus()
 
-word_count(corpus)
+word_list = get_words(text)
 
-most_common_words(corpus)
+word_count(word_list)
 
-most_common_characters(corpus)
+most_common_words(word_list)
 
-longest_words(corpus)
+most_common_characters(text)
 
-word_length_distribution(corpus)
+longest_words(word_list)
+
+word_length_distribution(word_list)
