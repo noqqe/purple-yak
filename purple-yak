@@ -71,6 +71,7 @@ def most_common_characters(text, count=5):
 
     # dont count the space characters
     chars[" "] = 0
+    chars["\n"] = 0
 
     for item in chars.most_common(count):
         print("{} ({})".format(item[1], item[0]))
@@ -99,7 +100,7 @@ def word_length_distribution(word_list):
     wordlenlist = []
 
     for word in word_list:
-        wordlenlist = wordlenlist + [len(word)]
+        wordlenlist.append(len(word))
 
     wordlen = collections.Counter(wordlenlist)
     for item in sorted(wordlen.keys(), key=int):
