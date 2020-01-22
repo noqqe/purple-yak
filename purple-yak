@@ -10,7 +10,7 @@ import sys
 
 def get_corpus():
     """
-    reads corpus from file
+    reads corpus from file or stdin, depending if file is there
 
     :returns: str
     """
