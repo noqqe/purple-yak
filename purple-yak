@@ -102,7 +102,7 @@ def word_length_distribution(word_list):
 
     wordlen = collections.Counter(wordlenlist)
     for item in sorted(wordlen.keys(), key=int):
-        print("{}\t({} characters)".format(wordlen[item], item))
+        print("{} ({} characters)".format(wordlen[item], item))
 
 
 def entropy(text):
