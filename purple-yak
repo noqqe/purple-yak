@@ -15,9 +15,12 @@ def get_corpus():
     :returns: str
     """
 
-    with open(sys.argv[1], "r") as f:
-        corpus = f.read()
-        f.close()
+    try:
+        with open(sys.argv[1], "r") as f:
+            corpus = f.read()
+            f.close()
+    except IndexError:
+        corpus = sys.stdin.read()
 
     return corpus
 
@@ -103,7 +106,6 @@ def word_length_distribution(word_list):
 
 
 text = get_corpus()
-
 word_list = get_words(text)
 
 word_count(word_list)
