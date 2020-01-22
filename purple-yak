@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+
+import re
+import inspect
+import collections
+import sys
+
+# Utils
+
+
+def get_corpus():
+    """
+    reads corpus from file
+
+    :returns: str
+    """
+
+    with open(sys.argv[1], "r") as f:
+        corpus = f.read()
+        f.close()
+
+    return corpus
+
+
+def draw_header(func):
+    print("\n[+] {}".format(inspect.getdoc(func)))
+
+
+def get_words(text):
+    res = re.findall(r'\w+', text)
+    return res
+
+# Analysis Functions
+
+
+def word_count(text):
+    """
+    Number of words in the corpus
+    """
+
+    draw_header(word_count)
+    r = get_words(text)
+    print(len(r))
+
+
+def most_common_words(text, count=5):
+    """
+    Most common words in the corpus
+    """
+
+    draw_header(most_common_words)
+
+    words_list = get_words(text)
+    words = collections.Counter(words_list)
+
+    for item in words.most_common(count):
+        print("{} ({})".format(item[1], item[0]))
+
+
+def most_common_characters(text, count=5):
+    """
+    Most common characters in the corpus
+    """
+
+    draw_header(most_common_characters)
+
+    chars = text.lower().strip()
+    chars = collections.Counter(chars)
+
+    # dont count the space characters
+    chars[" "] = 0
+
+    for item in chars.most_common(count):
+        print("{} ({})".format(item[1], item[0]))
+
+
+def longest_words(text, count=5):
+    """
+    Longest word in the corpus
+    """
+
+    draw_header(longest_words)
+
+    words_list = get_words(text)
+    words = sorted(list(set(words_list)), key=len, reverse=True)
+
+    for item in words[0:count]:
+        print("{} ({})".format(len(item), item))
+
+
+def word_length_distribution(text):
+    """
+    Distribution of word length in the corpus
+    """
+
+    draw_header(word_length_distribution)
+
+    wordlenlist = []
+    words_list = get_words(text)
+
+    for word in words_list:
+        wordlenlist = wordlenlist + [len(word)]
+
+    wordlen = collections.Counter(wordlenlist)
+    for item in sorted(wordlen.keys(), key=int):
+        print("{}\t({} characters)".format(wordlen[item], item))
+
+
+corpus = get_corpus()
+
+word_count(corpus)
+
+most_common_words(corpus)
+
+most_common_characters(corpus)
+
+longest_words(corpus)
+
+word_length_distribution(corpus)
