@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import math
 import re
 import inspect
 import collections
@@ -40,7 +41,6 @@ def word_count(text):
     """
     Number of words in the corpus
     """
-
     draw_header(word_count)
     print("{} sum".format(len(text)))
 
@@ -105,15 +105,33 @@ def word_length_distribution(word_list):
         print("{}\t({} characters)".format(wordlen[item], item))
 
 
+def entropy(text):
+    """
+    Shannon entropy of the corpus
+    """
+
+    draw_header(entropy)
+
+    # get probability of chars in string
+    prob = [float(text.count(c)) / len(text) for c in dict.fromkeys(list(text))]
+
+    # calculate the entropy
+    ent = - sum([p * math.log(p) / math.log(2.0) for p in prob])
+
+    # calc ideal
+    prob = 1.0 / len(text)
+    ideal_ent = -1.0 * len(text) * prob * math.log(prob) / math.log(2.0)
+    print("{:.3}/{:.3}".format(ent, ideal_ent))
+
+
+# Get text and wordlist
 text = get_corpus()
 word_list = get_words(text)
 
+# Analysis functions
 word_count(word_list)
-
 most_common_words(word_list)
-
 most_common_characters(text)
-
 longest_words(word_list)
-
 word_length_distribution(word_list)
+entropy(text)
