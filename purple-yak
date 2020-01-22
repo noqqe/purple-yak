@@ -126,6 +126,26 @@ def entropy(text):
     print("{:.3}/{:.3}".format(ent, ideal_ent))
 
 
+def zipf_chars(text, count=10):
+    """
+    zipf distribution on characters
+    """
+
+    draw_header(zipf_chars)
+
+    chars = text.lower().replace(' ', '')
+    chars_len = len(chars)
+
+    chars = collections.Counter(chars)
+
+    # dont count the space characters
+    chars["\n"] = 0
+
+    for item in chars.most_common(count):
+        occurence = float(float(item[1]) / chars_len)
+        print("{} ({})".format(item[0], occurence))
+
+
 # Get text and wordlist
 text = get_corpus()
 word_list = get_words(text)
@@ -137,3 +157,4 @@ most_common_characters(text)
 longest_words(word_list)
 word_length_distribution(word_list)
 entropy(text)
+zipf_chars(text)
